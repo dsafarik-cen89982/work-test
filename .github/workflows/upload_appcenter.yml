@@ -1,0 +1,18 @@
+name: UploadAppcenter
+on:
+    pull_request:
+        types:
+            - closed
+
+jobs:
+    download:
+        runs-on: ubuntu-latest
+        steps: 
+        - name: download artifacts
+          uses: actions/download-artifact@v2
+          with:
+            name: my-artifact
+            path: readme.md
+
+        - name: print file
+          run: cat readme.md
