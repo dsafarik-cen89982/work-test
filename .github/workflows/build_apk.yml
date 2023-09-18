@@ -7,15 +7,24 @@ on:
     branches: [ "**" ]
 
 jobs:
-  setup:
-    runs-on: ubuntu-latest
-    steps:
-      - id: shouldrun
-        run: |
-          if [[ "${{ github.head_ref }}" == *"test"* ]]; then
-              echo "shouldrun=false" >> $GITHUB_OUTPUT
-          else
-              echo "shouldrun=true" >> $GITHUB_OUTPUT 
-          fi
-
-      - run: echo ${{ needs.setup.outputs.shouldrun }}
+   setup:
+     runs-on: ubuntu-latest
+     outputs:
+      output1: ${{ steps.setup.outputs.shouldrun }}
+     steps:
+       - id: shouldrun
+         run: |
+           if [[ "${{ github.head_ref }}" == *"test"* ]]; then
+               echo "shouldrun=false" >> $GITHUB_OUTPUT
+           else
+               echo "shouldrun=true" >> $GITHUB_OUTPUT 
+           fi
+           
+   is_valid:
+     runs-on: ubuntu-latest
+     needs: [setup]
+     steps:
+       # Checkout code
+       - name: Checkout code
+         uses: actions/checkout@v3
+       - run: echo ${{ needs.setup.outputs.output1 }}
