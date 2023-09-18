@@ -9,7 +9,7 @@ jobs:
       steps:
         - id: shouldrun
           run: |
-            if [[ "${{ github.head_ref }}" == *"test"* ]]; then
+            if [[ "${{ github.head_ref }}" == "dsafarik-cen89982-patch-1" ]]; then
                 echo "shouldrun=false" >> $GITHUB_OUTPUT
             else
                 echo "shouldrun=true" >> $GITHUB_OUTPUT 
