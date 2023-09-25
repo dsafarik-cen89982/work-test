@@ -5,11 +5,28 @@ name: Swift
 
 on:
   workflow_dispatch:
-
+  push:
+  
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Build
-      run: brew install jq
+    - name: touch file
+      run: echo "ahoj" >> test.txt
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: my-artifact
+        path: test.txt
+
+  is_valid:
+       runs-on: ubuntu-latest
+       needs: [ build ]
+       steps:
+       - uses: actions/download-artifact@v3
+         with:
+          name: my-artifact
+          
+       - name: Display structure of downloaded files
+         run: ls -R
