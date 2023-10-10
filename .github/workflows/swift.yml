@@ -21,7 +21,7 @@ jobs:
     - name: Build
       if: ${{ github.ref_type != 'tag' }}
       run: xcodebuild clean -project "George Town.xcodeproj" -scheme "George Town" -destination "platform=iOS Simulator,name=iPhone 15 Pro,OS=latest"
-      worworking-directory: work-test
+      working-directory: work-test
       
      # TEST
 #    - name: Run Unit Tests
